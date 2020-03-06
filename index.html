@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>bedtime</title>
+	<style>*{font-family: helvetica;}</style>
+</head>
+<body>
+	<img src="cover.jpg">
+
+	<h1>Try to give Emmanuel a snack...</h1>
+
+	<p>What time is it?</p>
+	<label><input type="radio" name="hour" value="5"> 5pm</label><br>
+	<label><input type="radio" name="hour" value="6"> 6pm</label><br>
+	<label><input type="radio" name="hour" value="7"> 7pm</label><br>
+	<label><input type="radio" name="hour" value="8"> 8pm</label>
+
+	<p>What kind of Milk?</p>
+	<label><input type="radio" name="milkflav" value="chocolate"> Chocolate Milk</label><br>
+	<label><input type="radio" name="milkflav" value="strawberry"> Strawberry Milk</label><br>
+	<label><input type="radio" name="milkflav" value="plain"> Plain Milk</label>
+
+	<p>What kind of Snack?</p>
+	<label><input type="radio" name="snack" value="grapes"> Grapes</label><br>
+	<label><input type="radio" name="snack" value="apples"> Apples</label><br>
+	<label><input type="radio" name="snack" value="mango"> Mango</label><br>
+	<label><input type="radio" name="snack" value="banana"> Banana</label><br>
+	<label><input type="radio" name="snack" value="banana bread"> Banana Bread</label><br>
+	<label><input type="radio" name="snack" value="cupcakes"> Cupcakes</label><br>
+	<label><input type="radio" name="snack" value="Brocilli"> Brocolli</label><br><br>
+
+	<button type="button" id="eresponse" >offer to emmanuel</button><br><br>
+
+<script>
+
+//bts function with 3 parameters for hour, milk and snack
+function bts(h, m, s){
+	//set some preferences to check against
+	favmilk = ['chocolate','strawberry'];
+	favsnack = ['grapes','apples','mango','banana','banana bread','cupcakes'];
+
+	//check the hour parameter and return errors unless its snacktime (6 or 7)
+	if ( h == 5 ){
+		document.write('<b>Yell:</b> NO SHLEEP YET!</br>');
+	} else if ( h == 6 || h==7 ){
+
+		//check if milk is in the favmilk array
+		if ( favmilk.indexOf(m) == -1 ){
+			document.write('<b>Demand:</b> I want Chocilat milk!</br>');
+			goodMilk = false;
+		} else {
+			goodMilk = true;
+		}
+
+		//do the same with snack, but also check if snack is cupcake
+		if ( favsnack.indexOf(s) >= 0 && s == 'cupcakes' ){
+			document.write('<b>Warning:</b> SUGAR RUSH! TIME TO RUN AND JUMP AROUND</br>');
+			goodSnack = false;
+		} else if ( favsnack.indexOf(s) >= 0 && !(s == 'cupcakes') ){
+			goodSnack = true;
+		} else {
+			document.write('<b>Warning:</b> THROW TANTRUM!</br>');
+			goodSnack = false;
+		}
+
+		//if all preferred conditions are true, show success messages
+		if ( goodMilk && goodSnack ){
+			document.write('<b>Expression:</b> Thank you for '+m+' milk!</br>');
+			document.write('<b>Expression:</b> '+s+' is yummy!</br>');
+			document.write('<b>SUCCESS:</b> Emmanuel Shleep...zzzzzzz</br>');
+		}
+
+	} else {
+		document.write('TOO LATE: Emmanuel Shleeeeeeeping<br>');
+	}
+
+	//generate reset button
+	document.write('<button type="reset" onclick="location.reload();">start over</button>');
+}
+
+document.getElementById('eresponse').onclick= function(){
+	hour = document.querySelector('input[name=hour]:checked').value;
+	milk = document.querySelector('input[name=milkflav]:checked').value;
+	snack = document.querySelector('input[name=snack]:checked').value;
+	bts(hour, milk, snack);
+};
+</script>
+</body>
+</html>
+
